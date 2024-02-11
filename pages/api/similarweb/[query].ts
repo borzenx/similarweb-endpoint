@@ -17,6 +17,7 @@ export default async function handler(
     }
 
     const apiUrl = `https://data.similarweb.com/api/v1/data?domain=${query}`;
+    console.log('API URL:', apiUrl); // Log the API URL for debugging
 
     const response = await fetch(apiUrl);
     
@@ -27,9 +28,8 @@ export default async function handler(
     }
 
     const data = await response.json();
-    res.status(200).json(data);
+    res.json(data);
   } catch (error) {
     console.error('Error fetching data:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
   }
 }
