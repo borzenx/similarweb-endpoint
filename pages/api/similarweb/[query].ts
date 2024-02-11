@@ -1,5 +1,5 @@
-
 import { NextApiRequest, NextApiResponse } from 'next';
+import fetch from 'node-fetch';
 
 type ResponseData = {
   message: string;
@@ -10,7 +10,7 @@ export default async function handler(
   res: NextApiResponse<ResponseData>
 ) {
   try {
-    const { query } = req.query;
+    const query = req.query.query as string; // Accessing directly, no need for destructuring
     
     if (!query || typeof query !== 'string') {
       throw new Error('Invalid query parameter');
@@ -31,5 +31,6 @@ export default async function handler(
     res.json(data);
   } catch (error) {
     console.error('Error fetching data:', error);
+    res.status(500).json({ message: 'Error fetching data' }); // Respond with an error message
   }
 }
