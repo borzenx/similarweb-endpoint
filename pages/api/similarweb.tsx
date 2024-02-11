@@ -10,13 +10,8 @@ export default async function handler(
   res: NextApiResponse<ResponseData>
 ) {
   try {
-    const query = req.query.query as string;
 
-    if (!query || typeof query !== 'string') {
-      throw new Error('Invalid query parameter');
-    }
-
-    const apiUrl = `https://data.similarweb.com/api/v1/data?domain=${query}`;
+    const apiUrl = `https://data.similarweb.com/api/v1/data?domain=facebook.com`;
     console.log('API URL:', apiUrl);
 
     const response = await fetch(apiUrl);
