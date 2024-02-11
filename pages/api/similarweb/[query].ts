@@ -1,4 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+
+import { NextApiRequest, NextApiResponse } from 'next';
 
 type ResponseData = {
   message: string;
@@ -15,9 +16,13 @@ export default async function handler(
       throw new Error('Invalid query parameter');
     }
 
-    const response = await fetch(`https://data.similarweb.com/api/v1/data?domain=${query}`);
+    const apiUrl = `https://data.similarweb.com/api/v1/data?domain=${query}`;
+
+    const response = await fetch(apiUrl);
     
     if (!response.ok) {
+      const errorMessage = await response.text();
+      console.error('Failed to fetch data:', errorMessage);
       throw new Error('Failed to fetch data');
     }
 
