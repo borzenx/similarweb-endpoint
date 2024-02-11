@@ -28,7 +28,7 @@ export default async function handler(
     }
 
     const data = await response.json();
-    res.json(data);
+    res.json(data as ResponseData); // Type assertion here
   } catch (error) {
     console.error('Error fetching data:', error);
     res.status(500).json({ message: 'Error fetching data' }); // Respond with an error message
